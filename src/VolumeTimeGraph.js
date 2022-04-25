@@ -107,8 +107,6 @@ export function ShapeGraph(props) {
   } else {
     return;
   }
-  let minRange = getMin(props.data[props.data.length - 1]);
-  let maxRange = getMax(props.data[props.data.length - 1]);
   let data = recentSensorLengths.map((e, j) => {
     return { val: e, sensor: j + 1 };
   });

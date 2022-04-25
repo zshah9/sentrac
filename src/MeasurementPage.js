@@ -122,32 +122,6 @@ export default function MeasurementPage(props) {
     console.log("ready to write");
   }
 
-  function processAndUpdate() {
-    let time = new Date().toLocaleDateString("en-US");
-    let sensorReadings = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-    let lengths = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-    let vol = 0.0;
-
-    // get int array of sensor readings from str, and lengths using linear regression model
-    for (let i = 0; i < 7; i++) {
-      sensorReadings[i] = Number(receivedValues[i].slice(3, 100));
-      lengths[i] = lenSlopes[i] * sensorReadings[i] + lenIntercepts[i];
-      console.log("sensor: ", sensorReadings[i]);
-      console.log("length: ", lengths[i]);
-      // get volume of cylinder approximation as V += C^2 * h / 4pi
-      vol += (Math.pow(lengths[i] + sleeveLen, 2) * senWidth) / (4 * Math.PI);
-    }
-    console.log("volume: ", vol);
-
-    // update with new measurements
-    props.addMeasurement({
-      lens: Array.from(lengths),
-      vol: vol,
-      date: time,
-    });
-    showSnackbar("Measurement Added", "success");
-  }
-
   function processHackAndUpdate() {
     let time = new Date().toLocaleDateString("en-US");
     let sensorReadings = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];

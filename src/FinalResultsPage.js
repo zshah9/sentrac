@@ -2,11 +2,6 @@ import Box from "@mui/system/Box";
 import { Stack } from "@mui/material";
 import { ShapeGraph, VolumeTimeGraph } from "./VolumeTimeGraph";
 import {
-  Toolbar,
-  List,
-  ListItem,
-  ListItemText,
-  Drawer,
   Divider,
   Typography,
 } from "@mui/material";
@@ -24,16 +19,6 @@ function splitMeasurements(measurements) {
   );
   console.log("to plot: ", res);
   return res;
-}
-
-function scrollIntoViewWithOffset(selector, offset = 64) {
-  window.scrollTo({
-    behavior: "smooth",
-    top:
-      document.querySelector(selector).getBoundingClientRect().top -
-      document.body.getBoundingClientRect().top -
-      offset,
-  });
 }
 
 export default class FinalResultsPage extends React.Component {
