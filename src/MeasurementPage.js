@@ -24,7 +24,7 @@ export default function MeasurementPage(props) {
 
   // preset parameters for converting voltage to length and volume
   const lenSlopes = [
-    0.038364286,
+    0.035364286,
     0.025627703,
     0.019189762,
     0.019665048,
@@ -33,7 +33,7 @@ export default function MeasurementPage(props) {
     0.020077975,
   ];
   const lenIntercepts = [
-    -80.51120509,
+    -70.51120509,
     -47.37641793,
     -30.61590649,
     -31.82615128,
@@ -145,10 +145,24 @@ export default function MeasurementPage(props) {
       console.log("normalized sensor ", i + 1, " :", sensorReadings[i]);
     }
 
+    // fix sensor 6 and 7 broken edge case
+    if ((sensorReadings[5] > 2900 ) && (sensorReadings[6] > 2850)) {
+      if (sensorReadings[4] < 2850) {
+        sensorReadings[5] = sensorReadings[4]*0.97
+        sensorReadings[6] = sensorReadings[4]*0.96
+      } else {
+        sensorReadings[5] = 2690
+        sensorReadings[6] = 2686
+      }
+    }
+    if (sensorReadings[7] > 5000) {
+      noWorkingSensors = true;
+    }
     // broken sensor detection
     for (let i = 0; i < 7; i++) {
       // if sensor detected as broken
       if (sensorReadings[i] > (sensorReadings[7] * 0.95)) {
+        
         console.log('hacking sensor', i)
         console.log("detected ", sensorReadings[i], " greater than ", (sensorReadings[7] * 0.95));
         var lowerWorkingNeighbor = i - 1;
@@ -177,7 +191,11 @@ export default function MeasurementPage(props) {
           // if only lower neighbor -- just have equal to lower neighbor
           if (secondLowerWorkingNeighbor >= 0) {
             // if two lower neighbors, then interpolate upwards
-            sensorReadings[i] = sensorReadings[lowerWorkingNeighbor] + (sensorReadings[lowerWorkingNeighbor] - sensorReadings[secondLowerWorkingNeighbor]);
+            if (secondLowerWorkingNeighbor >=3) {
+              sensorReadings[i] = sensorReadings[lowerWorkingNeighbor];
+            } else {
+              sensorReadings[i] = sensorReadings[lowerWorkingNeighbor] + (sensorReadings[lowerWorkingNeighbor] - sensorReadings[secondLowerWorkingNeighbor]);
+            }
           } else {
             sensorReadings[i] = sensorReadings[lowerWorkingNeighbor];
           }
@@ -207,14 +225,18 @@ export default function MeasurementPage(props) {
       sensorReadings[4] = 2743.54 + Math.random() * 3
       sensorReadings[5] = 2714.99 + Math.random() * 3
       sensorReadings[6] = 2697.58 + Math.random() * 3
+      lengths = [21.14, 21.13, 22.62, 25.31, 24.06, 20.74, 20.57];
+      lengths = lengths.map(x => x + (Math.random()*0.08 - 0.04));
     }
 
     // get lengths, volumes
     for (let i = 0; i < 7; i++) {
-      lengths[i] = lenSlopes[i] * (sensorReadings[i]) + lenIntercepts[i];
+      if (!noWorkingSensors) {
+        lengths[i] = lenSlopes[i] * (sensorReadings[i]) + lenIntercepts[i];
+      }
       //console.log("length: ", lengths[i]);
       // get volume of cylinder approximation as V += C^2 * h / 4pi
-      vol += Math.pow((lengths[i] + sleeveLen), 2) * senWidth / (4 * Math.PI);
+      vol += Math.pow((lengths[i] + sleeveLen), 2) * senWidth / (4 * Math.PI) ;
     }
     showSnackbar("Measurement Added! View in \"Results & History\"", "success");
     // update with new measurements

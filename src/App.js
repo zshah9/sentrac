@@ -21,14 +21,14 @@ const PAGE_FINAL_RESULTS = "finalresults";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    let pseudo_len = Array.from([19.54, 22.73, 22.72, 26.11, 23.66, 20.94, 18.37]);
+    let pseudo_len = Array.from([22.94, 22.73, 24.52, 27.11, 25.96, 21.94, 21.27]);
     pseudo_len = pseudo_len.map(x => x / 1619)
     console.log(pseudo_len*1824/1619)
     this.state = {
       currPage: "",
       measurements: {
-        lens: [pseudo_len.map(x => x * 1824), pseudo_len.map(x => x * 1805), pseudo_len.map(x => x * 18217994), pseudo_len.map(x => x * 1750), pseudo_len.map(x => x * 1742)],
-        vols: [1824.53330, 1805.9993, 1799.1112, 1750.2223, 1742.3813],
+        lens: [pseudo_len.map(x => x * 1738), pseudo_len.map(x => x * 1735), pseudo_len.map(x => x * 1719), pseudo_len.map(x => x * 1680), pseudo_len.map(x => x * 1642)],
+        vols: [1738.53330, 1735.9993, 1719.1112, 1680.2223, 1642.3813],
         dates: ["3/22/2022", "3/29/2022", "4/5/2022", "4/12/2022", "4/19/2022"],
       },
     };
