@@ -275,12 +275,13 @@ export default function MeasurementPage(props) {
     <Box px={10} py={5}>
       <Typography variant="h5">Instructions</Typography>
       <ol>
+        <li>Straighten your leg and maintain a stable position.</li>
+        <li>Center the silicone sheet over the front of the knee.</li>
+        <li>Close the buckles over the back of the knee.</li>
         <li>Turn on the device via switch.</li>
         <li>Click on the "Pair Device" button below.</li>
-        <li>Straighten your leg and place in a stable position.</li>
-        <li>Place the silicone sheet on the front of the knee.</li>
-        <li>Close the buckles on the back of the knee.</li>
-        <li>Click on the "Take Measurement" button below.</li>
+        <li>Once paired, click on the "Take Measurement" button below.</li>
+        <li>View results in the "Results & History" tab above.</li>
       </ol>
       <Stack spacing={2}>
         <Button variant="contained" onClick={() => connectToBle()}>

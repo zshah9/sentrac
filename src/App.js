@@ -12,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import logo from "./SentracWhiteLogo3.png";
-import {CSVLink} from "react-csv";
 
 
 const PAGE_MEASUREMENT = "measurement";
@@ -76,21 +75,16 @@ export default class App extends React.Component {
       return <FinalResultsPage measurements={this.state.measurements} />;
     }
     return (
-      <Typography align="center" py={5}>Select a page using the tabs above</Typography>
+      <Box>
+        <Typography align="center" py={3} sx={{ fontSize: 50 }}>Welcome to Sentrac Monitoring, Andy!</Typography>
+        <Typography align="center" py={1} sx={{ fontSize: 30 }}>Click "Take Measurement" tab to begin assessment.</Typography>
+        <Typography align="center" py={1} sx={{ fontSize: 30 }}>Click "Results & History" tab to view patient history.</Typography>
+      </Box>
+      
     );
   }
 
   render() {
-    const csvData = this.state.measurements.lens.map((l, i) =>
-      [
-        this.state.measurements.dates[i],
-        this.state.measurements.vols[i],
-      ].concat(l)
-    );
-    let csvHeaders = ["Date", "Volume (mL)"];
-    csvHeaders = csvHeaders.concat(
-      Array.from({ length: 7 }, (_, i) => `Sensor #${i + 1} Length (cm)`)
-    );
     return (
       <Box>
         <CssBaseline />
@@ -131,13 +125,9 @@ export default class App extends React.Component {
                 Results & History
               </Button>
             </Box>
-            <CSVLink
-              data={csvData}
-              headers={csvHeaders}
-              filename="measurement_data.csv"
-            >
-              Download Data
-            </CSVLink>
+            <Box color="inherit" variant="outlined" p={1} sx={{ border: 1, borderRadius: '4px' }}>
+              Welcome, Andy
+            </Box>
           </Toolbar>
         </AppBar>
         <Box>

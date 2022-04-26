@@ -36,11 +36,11 @@ export function VolumeTimeGraph(props) {
   let minRange = getMin(props.data);
   let maxRange = getMax(props.data);
   console.log("data: ", props.data);
-  let graphWidth = Math.max(900, props.data.length * 75);
+  let graphWidth = Math.max(700, props.data.length * 75);
 
   return (
     <Box sx={{ py: 5 }}>
-      <Box sx={{ width: 900, marginLeft: "100px" }}>
+      <Box sx={{ width: 500, marginLeft: 20 }}>
         <Typography variant="h5" align="center">
           {props.title}
         </Typography>
@@ -50,9 +50,9 @@ export function VolumeTimeGraph(props) {
         height={500}
         data={props.data}
         margin={{
-          top: 10,
-          right: 20,
-          left: 100,
+          top: 20,
+          right: 10,
+          left: 60,
           bottom: 105,
         }}
       >
@@ -61,7 +61,7 @@ export function VolumeTimeGraph(props) {
           dataKey="date"
           angle={-60}
           dx={-25}
-          dy={40}
+          dy={30}
           interval={0}
           fontSize={17}
         >
@@ -74,7 +74,7 @@ export function VolumeTimeGraph(props) {
           domain={[minRange, maxRange]}
           tickMargin={10}
           tickCount={3}
-          width={100}
+          width={50}
         >
           <Label
             angle={270}
@@ -113,34 +113,34 @@ export function ShapeGraph(props) {
   console.log(data);
   return (
     <Box sx={{ py: 5 }}>
-      <Box sx={{ width: 500, marginLeft: 30 }}>
+      <Box sx={{ width: 500, marginLeft: 5 }}>
         <Typography variant="h5" align="center">
           {props.title}
         </Typography>
       </Box>
       <LineChart
-        width={900}
+        width={500}
         height={450}
         data={data}
         margin={{
           top: 20,
-          right: 20,
-          left: 20,
+          right: 10,
+          left: 10,
           bottom: 80,
         }}
       >
         <CartesianGrid strokeDasharray="1 1" />
-        <XAxis dataKey="sensor">
+        {/* <XAxis dataKey="sensor">
           <Label position="bottom" style={{ textAnchor: "middle" }} dy={10}>
             Sensor
           </Label>
-        </XAxis>
+        </XAxis> */}
         <YAxis
           type="number"
           //domain={[minRange, maxRange]}
           tickMargin={10}
           tickCount={3}
-          width={100}
+          width={60}
         >
           <Label angle={270} position="left" style={{ textAnchor: "middle" }}>
             Length (cm)

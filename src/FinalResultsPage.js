@@ -1,5 +1,4 @@
 import Box from "@mui/system/Box";
-import { Stack } from "@mui/material";
 import { ShapeGraph, VolumeTimeGraph } from "./VolumeTimeGraph";
 import {
   Divider,
@@ -41,7 +40,6 @@ export default class FinalResultsPage extends React.Component {
     const calculatedVols = splitMeasurements(this.props.measurements);
     return (
       <Box sx={{ display: "flex" }}>
-        <Stack>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             {calculatedVols.map((e, i) => (
               <div
@@ -49,7 +47,7 @@ export default class FinalResultsPage extends React.Component {
                 key={i}
                 ref={(el) => (this.graphRefs[i] = el)}
               >
-                <VolumeTimeGraph data={e} title={"Joint Volume Progression"} />
+                <VolumeTimeGraph data={e} title={"Knee Inflammation Progress"} />
               </div>
             ))}
           </Box>
@@ -63,12 +61,11 @@ export default class FinalResultsPage extends React.Component {
               >
                 <ShapeGraph
                   data={this.props.measurements.lens}
-                  title={"Current Joint Shape"}
+                  title={"Andy's Joint Shape"}
                 />
               </div>
             ))}
           </Box>
-        </Stack>
       </Box>
     );
   }
